@@ -15,18 +15,16 @@ int main(void)
 {
     CyGlobalIntEnable; /* Enable global interrupts. */
     UART_1_Start();
-    uint32 i = 32;
+    char buf;
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 
     for(;;)
     {
-        UART_1_PutCRLF(i);
-        if(i == 127)
+        buf = UART_1_GetChar();
+        if(0u != buf)
         {
-            i = 32;
+        UART_1_PutCRLF(buf);
         }
-        i++;
-        CyDelay(5000);
         /* Place your application code here. */
     }
 }
