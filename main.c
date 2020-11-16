@@ -1,6 +1,7 @@
 #include "cy_pdl.h"
 #include "stdio.h"
 
+
 /******************************************************************************
  * Function prototype
  * ***************************************************************************/
@@ -19,12 +20,11 @@ static void pwmStart(void);
 /* UART config function */
 static void uartStart(void);
 
+static void uartStartLoopCycle(void);
+
 /* Print sestem settings function */
 static void printSystemSettings(void);
 
-/* CTDAC function */
-static void ctdacStart(void);
-static void ctdacStartSendData(void);
 
 /******************************************************************************
  * Clock and system defines
@@ -58,6 +58,7 @@ static void ctdacStartSendData(void);
 
 #define PIN_STATUS_PORT                         (GPIO_PRT11)
 #define PIN_STATUS_PIN                          (1U)
+
 
 
 /******************************************************************************
@@ -105,23 +106,7 @@ static void ctdacStartSendData(void);
 
 
 /******************************************************************************
- * DAC defines
- * ***************************************************************************/
-#define CTDAC                                   (CTDAC0)
-
-/* Output pin */
-#define CTDAC_PORT                              (GPIO_PRT9)
-#define CTDAC_PIN                               (6U)
-
-#define CTDAC_VOLTAGE_LEVEL_1_0                 (0xFFFU)
-#define CTDAC_VOLTAGE_LEVEL_1_1                 (0xAABU)
-#define CTDAC_VOLTAGE_LEVEL_0_1                 (0x555U)
-#define CTDAC_VOLTAGE_LEVEL_0_0                 (0x0U)
-#define CTDAC_DEFAULT_VOLTAGE_LEVEL             (CTDAC_VOLTAGE_LEVEL_0_0)
-
-
-/******************************************************************************
- * Variable
+ * Variables
  * ***************************************************************************/
 /* sysClk API status */
 static cy_en_sysclk_status_t sysClkStatus;
@@ -131,10 +116,9 @@ static cy_stc_scb_uart_context_t uartContext;
 
 /* UART buffer */
 static uint8_t uartBuffer[UART_BUFFER_SIZE];
-static uint32_t uartBufferNum = 0U;
 
 /* UART interrupt structure */
-static cy_stc_sysint_t uartIntrConfig =
+cy_stc_sysint_t uartIntrConfig =
 {
     .intrSrc      = UART_INTR_NUM,
     .intrPriority = UART_INTR_PRIORITY,
@@ -216,24 +200,6 @@ static const cy_stc_gpio_pin_config_t uartTxPin =
     .vohSel = 0UL
 };
 
-/* Config structure for CTDAC pin */
-static const cy_stc_gpio_pin_config_t dacPin =
-{
-    .outVal = 1UL,
-    .driveMode = CY_GPIO_DM_ANALOG,
-    .hsiom = 0U,
-    .intEdge = CY_GPIO_INTR_DISABLE,
-    .intMask = 0UL,
-    .vtrip = CY_GPIO_VTRIP_CMOS,
-    .slewRate = CY_GPIO_SLEW_FAST,
-    .driveSel = CY_GPIO_DRIVE_FULL,
-    .vregEn = 0UL,
-    .ibufMode = 0UL,
-    .vtripSel = 0UL,
-    .vrefSel = 0UL,
-    .vohSel = 0UL
-};
-
 /******************************************************************************
  * Peripheral config structure
  * ***************************************************************************/
@@ -258,9 +224,9 @@ static const cy_stc_tcpwm_pwm_config_t pwmConfig =
     .swapInputMode     = CY_TCPWM_INPUT_RISINGEDGE,
     .swapInput         = CY_TCPWM_INPUT_0,
     .reloadInputMode   = CY_TCPWM_INPUT_RISINGEDGE,
-    .reloadInput       = CY_TCPWM_INPUT_0,
+    .reloadInput       = CY_TCPWM_INPUT_0, 
     .startInputMode    = CY_TCPWM_INPUT_RISINGEDGE,
-    .startInput        = CY_TCPWM_INPUT_0,
+    .startInput        = CY_TCPWM_INPUT_0, 
     .killInputMode     = CY_TCPWM_INPUT_RISINGEDGE,
     .killInput         = CY_TCPWM_INPUT_0,
     .countInputMode    = CY_TCPWM_INPUT_LEVEL,
@@ -297,26 +263,6 @@ static const cy_stc_scb_uart_config_t uartConfig =
     .txFifoIntEnableMask = 0UL,
 };
 
-/* Config structure for CTDAC */
-static const cy_stc_ctdac_config_t ctdacConfig =
-{
-    .refSource        = CY_CTDAC_REFSOURCE_VDDA,
-    .formatMode       = CY_CTDAC_FORMAT_UNSIGNED,
-    .updateMode       = CY_CTDAC_UPDATE_DIRECT_WRITE,
-    .deglitchMode     = CY_CTDAC_DEGLITCHMODE_NONE,
-    .outputMode       = CY_CTDAC_OUTPUT_VALUE,
-    .outputBuffer     = CY_CTDAC_OUTPUT_UNBUFFERED,
-    .deepSleep        = CY_CTDAC_DEEPSLEEP_DISABLE,
-    .deglitchCycles   = 0U,
-    .value            = 0uL,
-    .nextValue        = 0uL,
-    .enableInterrupt  = false,
-    .configClock      = false,
-    .dividerType      = 0U,
-    .dividerNum       = 0U,
-    .dividerIntValue  = 0U,
-    .dividerFracValue = 0U,
-};
 
 /******************************************************************************
  * Interrupt handler
@@ -324,62 +270,10 @@ static const cy_stc_ctdac_config_t ctdacConfig =
 /* Interrupt handler for UART */
 void UART_Isr(void)
 {
-    char str[100U];
-
-    uint32_t numRx = 0U;
-    uint32_t data = 0U;
-
-    numRx = Cy_SCB_UART_GetNumInRxFifo(UART);
-    for(uint32_t i = 0U; i < numRx; i++)
-    {
-        data = Cy_SCB_UART_Get(UART);
-
-        if(uartBufferNum > 126U)
-        {
-            Cy_SCB_UART_PutString(UART, "Too long\n\r");
-            uartBufferNum = 0U;
-            Cy_SCB_UART_PutString(UART, "<--------------------------------------------------------------------------->\n\r");
-        }
-        else
-        {
-            if (data == '%')
-            {
-                if(uartBufferNum < 2U)
-                {
-                    Cy_SCB_UART_PutString(UART, "Only one character sended\n\r");
-                    uartBufferNum = 0U;
-                    Cy_SCB_UART_PutString(UART, "<--------------------------------------------------------------------------->\n\r");
-                }
-                else if((uartBufferNum & 0x1U) == 0x1U)
-                {
-                    sprintf(str, "Odd number of characters - %ld\n\r", uartBufferNum);
-                    Cy_SCB_UART_PutString(UART, str);
-                    uartBufferNum = 0U;
-                    Cy_SCB_UART_PutString(UART, "<--------------------------------------------------------------------------->\n\r");
-                }
-                else
-                {
-                    sprintf(str, "All character receive, Number of character = %ld\n\r", uartBufferNum);
-                    Cy_SCB_UART_PutString(UART, str);
-                    ctdacStartSendData();
-                    Cy_SCB_UART_PutString(UART, "<--------------------------------------------------------------------------->\n\r");
-                }
-            }
-            else if((data == '0') || (data == '1'))
-            {
-                uartBuffer[uartBufferNum] = data;
-                uartBufferNum++;
-            }
-            else
-            {
-                Cy_SCB_UART_PutString(UART, "Incorrect data\n\r");
-                sprintf(str, "This character is invalid- %c\n\r", ((uint8_t)data));
-                Cy_SCB_UART_PutString(UART, str);
-                uartBufferNum = 0U;
-                Cy_SCB_UART_PutString(UART, "<--------------------------------------------------------------------------->\n\r");
-            }
-        }
-    }
+    uint32_t num = 0U;
+    num = Cy_SCB_UART_GetNumInRxFifo(UART);
+    Cy_SCB_UART_GetArray(UART, uartBuffer, num);
+    Cy_SCB_UART_PutArray(UART, uartBuffer, num);
 
     Cy_SCB_ClearRxInterrupt(UART, CY_SCB_RX_INTR_NOT_EMPTY);
 }
@@ -392,7 +286,7 @@ int main(void)
 {
     __enable_irq();
 
-    /* Init error pin */
+    /* Init error and pwm pin */
     Cy_GPIO_Pin_Init(PIN_ERROR_PORT, PIN_ERROR_PIN, &errorPin);
 
     pwmStart();
@@ -400,7 +294,7 @@ int main(void)
     uartStart();
     printSystemSettings();
 
-    ctdacStart();
+    uartStartLoopCycle();
 
     for (;;)
     {
@@ -415,8 +309,8 @@ int main(void)
  * ***************************************************************************/
 static void errorOccur(void)
 {
-    __disable_irq();
     SystemCoreClockUpdate();
+    __disable_irq();
 
     for(;;)
     {
@@ -600,21 +494,15 @@ static void uartStart(void)
     Cy_SysClk_PeriphSetDivider(UART_PERI_DIV_TYPE, UART_PERI_DIV_NUM, UART_PERI_DIV_VAL);
     Cy_SysClk_PeriphEnableDivider(UART_PERI_DIV_TYPE, UART_PERI_DIV_NUM);
 
-    /* Init UART pin */
     Cy_GPIO_Pin_Init(UART_RX_PIN_PORT, UART_RX_PIN_PIN, &uartRxPin);
     Cy_GPIO_Pin_Init(UART_TX_PIN_PORT, UART_TX_PIN_PIN, &uartTxPin);
-
-    Cy_SCB_SetRxInterruptMask(UART, CY_SCB_RX_INTR_NOT_EMPTY);
-
-    (void) Cy_SysInt_Init(&uartIntrConfig, &UART_Isr);
-    NVIC_EnableIRQ(UART_INTR_NUM);
 
     Cy_SCB_UART_Enable(UART);
 }
 
 
 /******************************************************************************
- * Name: uartStart
+ * Name: printSystemSettings
  * ****************************************************************************
  * Description: Print base system settings
  * ***************************************************************************/
@@ -639,62 +527,20 @@ static void printSystemSettings(void)
 
 
 /******************************************************************************
- * Name: ctdacStart
+ * Name: uartStartLoopCycle
  * ***************************************************************************/
-static void ctdacStart(void)
+static void uartStartLoopCycle(void)
 {
-    Cy_SCB_UART_PutString(UART, "Execution start\n\r");
-    Cy_SCB_UART_PutString(UART, "Init CTDAC Pin - 9.6\n\r");
-    Cy_GPIO_Pin_Init(CTDAC_PORT, CTDAC_PIN, &dacPin);
-    
-    Cy_SCB_UART_PutString(UART, "Init and enable CTDAC\n\r");
-    Cy_CTDAC_Init(CTDAC, &ctdacConfig);
-    Cy_CTDAC_Enable(CTDAC);
+    (void) Cy_SysInt_Init(&uartIntrConfig, &UART_Isr);
+    NVIC_EnableIRQ(UART_INTR_NUM);
 
-    /* Set default value */
-    Cy_SCB_UART_PutString(UART, "Set default value - 0 V\n\r");
-    Cy_CTDAC_SetValue(CTDAC, CTDAC_DEFAULT_VOLTAGE_LEVEL);
+    /* Set interrupt mask */
+    Cy_SCB_SetRxInterruptMask(UART, CY_SCB_RX_INTR_NOT_EMPTY);
 
+    Cy_SCB_UART_PutString(UART, "Ppaz lab 3\n\r");
+    Cy_SCB_UART_PutString(UART, "UART Interrupt config complete\n\r");
+    Cy_SCB_UART_PutString(UART, "Do not send more than 128 bytes data in one transmit\n\r");
+    Cy_SCB_UART_PutString(UART, "Wait until terminal show data, then send new data\n\r");
     Cy_SCB_UART_PutString(UART, "<--------------------------------------------------------------------------->\n\r");
-}
-
-
-/******************************************************************************
- * Name: ctdacStartSendData
- * ***************************************************************************/
-static void ctdacStartSendData(void)
-{
-    uint32_t signalLevel = 0U;
-    Cy_SCB_UART_PutString(UART, "CTDAC start sending signal\n\r");
-
-    for(uint32_t i = 0U; i < uartBufferNum; i += 2U)
-    {
-        signalLevel = 0U;
-
-        if((uartBuffer[i] == '1') && (uartBuffer[i + 1U] == '0'))
-        {
-            signalLevel = CTDAC_VOLTAGE_LEVEL_1_0;
-        }
-        else if((uartBuffer[i] == '1') && (uartBuffer[i + 1U] == '1'))
-        {
-            signalLevel = CTDAC_VOLTAGE_LEVEL_1_1;
-        }
-        else if((uartBuffer[i] == '0') && (uartBuffer[i + 1U] == '1'))
-        {
-            signalLevel = CTDAC_VOLTAGE_LEVEL_0_1;
-        }
-        else
-        {
-            signalLevel = CTDAC_VOLTAGE_LEVEL_0_0;
-        }
-
-        Cy_CTDAC_SetValue(CTDAC, signalLevel);
-        Cy_SysLib_Delay(20U);
-    }
-
-    Cy_CTDAC_SetValue(CTDAC, CTDAC_DEFAULT_VOLTAGE_LEVEL);
-    uartBufferNum = 0U;
-
-    Cy_SCB_UART_PutString(UART, "CTDAC stop sending signal\n\r");
 }
 /* [] END OF FILE */
