@@ -1,0 +1,6 @@
+F:\PSoCCreatorSetup\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|6ce4ae96-9cb4-496f-bbb5-da0b63588148
+C:\Users\yurao\OneDrive\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|f1ac95e6-5787-44d8-8a01-fb9d086b25b4
+F:\PSoCCreatorSetup\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|d12fb6e7-7b27-41b1-bd53-e74679b1425f
+F:\PSoCCreatorSetup\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|e202292a-cdac-4127-8f5f-775ee426b789
+F:\PSoCCreatorSetup\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|0cc68108-f891-43bc-ba07-d248a4d3d472
+E:\Bench\Laba 3\yura01\Design01.cydsn\Design01.cyprj|57353989-dd2f-49cf-9940-2b5571b10777

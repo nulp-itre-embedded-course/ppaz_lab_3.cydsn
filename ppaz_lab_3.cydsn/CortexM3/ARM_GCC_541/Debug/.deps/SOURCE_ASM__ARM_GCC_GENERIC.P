@@ -1,0 +1,10 @@
+E:/Bench/Laba\ 3/yura01/Design01.cydsn/CortexM3/ARM_GCC_541/Debug/CyBootAsmGnu.o : E:/Bench/Laba\ 3/yura01/Design01.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s E:/Bench/Laba\ 3/yura01/Design01.cydsn/Generated_Source/PSoC5/cydevicegnu.inc E:/Bench/Laba\ 3/yura01/Design01.cydsn/Generated_Source/PSoC5/cydevicegnu_trm.inc E:/Bench/Laba\ 3/yura01/Design01.cydsn/Generated_Source/PSoC5/cyfittergnu.inc 
+
+E:/Bench/Laba\ 3/yura01/Design01.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s : 
+
+E:/Bench/Laba\ 3/yura01/Design01.cydsn/Generated_Source/PSoC5/cydevicegnu.inc : 
+
+E:/Bench/Laba\ 3/yura01/Design01.cydsn/Generated_Source/PSoC5/cydevicegnu_trm.inc : 
+
+E:/Bench/Laba\ 3/yura01/Design01.cydsn/Generated_Source/PSoC5/cyfittergnu.inc : 
+
