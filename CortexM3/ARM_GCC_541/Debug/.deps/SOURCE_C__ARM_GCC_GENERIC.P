@@ -1,0 +1,46 @@
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/CortexM3/ARM_GCC_541/Debug/main.o : D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/CyDmac.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/CyFlash.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/CyLib.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/CySpc.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/UART_1.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/UART_1_IntClock.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cmsis_armcc.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cmsis_compiler.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cmsis_gcc.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/core_cm3.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cyPm.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cydevice.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cydisabledsheets.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cyfitter.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cypins.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cytypes.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/project.h D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/main.c 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/CyDmac.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/CyFlash.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/CyLib.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/CySpc.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/UART_1.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/UART_1_IntClock.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cmsis_armcc.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cmsis_compiler.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cmsis_gcc.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/core_cm3.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cyPm.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cydevice.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cydevice_trm.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cydisabledsheets.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cyfitter.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cypins.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/cytypes.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/Generated_Source/PSoC5/project.h : 
+
+D:/PAZ_lab/lab_1/ppaz_lab_3.cydsn/main.c : 
+
