@@ -1,0 +1,990 @@
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	2
+  21              		.global	main
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB63:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** int16 delay =0;
+  15:main.c        **** 
+  16:main.c        **** int main(void)
+  17:main.c        **** {
+  28              		.loc 1 17 0
+  29              		.cfi_startproc
+  30              		@ Volatile: function does not return.
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  18:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  37              		.loc 1 18 0
+  38              		.syntax unified
+  39              	@ 18 "main.c" 1
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 2
+
+
+  40 0002 62B6     		CPSIE   i
+  41              	@ 0 "" 2
+  19:main.c        ****     Timer_Start();
+  42              		.loc 1 19 0
+  43              		.thumb
+  44              		.syntax unified
+  45 0004 FFF7FEFF 		bl	Timer_Start
+  46              	.LVL0:
+  20:main.c        ****     LCD_Init();
+  47              		.loc 1 20 0
+  48 0008 FFF7FEFF 		bl	LCD_Init
+  49              	.LVL1:
+  21:main.c        **** 
+  22:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  23:main.c        ****     LCD_Position(0,0);
+  50              		.loc 1 23 0
+  51 000c 0021     		movs	r1, #0
+  52 000e 0846     		mov	r0, r1
+  53 0010 FFF7FEFF 		bl	LCD_Position
+  54              	.LVL2:
+  24:main.c        ****     LCD_PrintString("Distance:");
+  55              		.loc 1 24 0
+  56 0014 1F48     		ldr	r0, .L5
+  57 0016 FFF7FEFF 		bl	LCD_PrintString
+  58              	.LVL3:
+  25:main.c        ****     CyDelay(1000);
+  59              		.loc 1 25 0
+  60 001a 4FF47A70 		mov	r0, #1000
+  61 001e FFF7FEFF 		bl	CyDelay
+  62              	.LVL4:
+  63              	.L3:
+  26:main.c        **** 
+  27:main.c        ****     for(;;)
+  28:main.c        ****     {
+  29:main.c        ****         //Send Pulse
+  30:main.c        ****         Control_Write(0);
+  64              		.loc 1 30 0
+  65 0022 0020     		movs	r0, #0
+  66 0024 FFF7FEFF 		bl	Control_Write
+  67              	.LVL5:
+  31:main.c        ****         CyDelayUs(2u);
+  68              		.loc 1 31 0
+  69 0028 0220     		movs	r0, #2
+  70 002a FFF7FEFF 		bl	CyDelayUs
+  71              	.LVL6:
+  32:main.c        ****         Control_Write(1);
+  72              		.loc 1 32 0
+  73 002e 0120     		movs	r0, #1
+  74 0030 FFF7FEFF 		bl	Control_Write
+  75              	.LVL7:
+  33:main.c        ****         CyDelayUs(10u);
+  76              		.loc 1 33 0
+  77 0034 0A20     		movs	r0, #10
+  78 0036 FFF7FEFF 		bl	CyDelayUs
+  79              	.LVL8:
+  34:main.c        ****         Control_Write(0);
+  80              		.loc 1 34 0
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 3
+
+
+  81 003a 0020     		movs	r0, #0
+  82 003c FFF7FEFF 		bl	Control_Write
+  83              	.LVL9:
+  35:main.c        ****         CyDelayUs(500);
+  84              		.loc 1 35 0
+  85 0040 4FF4FA70 		mov	r0, #500
+  86 0044 FFF7FEFF 		bl	CyDelayUs
+  87              	.LVL10:
+  88              	.L2:
+  36:main.c        ****         
+  37:main.c        ****         //Wait for response
+  38:main.c        ****         while (ECHO_Read()==1){}
+  89              		.loc 1 38 0 discriminator 1
+  90 0048 FFF7FEFF 		bl	ECHO_Read
+  91              	.LVL11:
+  92 004c 0128     		cmp	r0, #1
+  93 004e FBD0     		beq	.L2
+  39:main.c        ****         
+  40:main.c        ****         //Calculate distance
+  41:main.c        ****         delay=(65535 - Timer_ReadCounter())/58;
+  94              		.loc 1 41 0
+  95 0050 FFF7FEFF 		bl	Timer_ReadCounter
+  96              	.LVL12:
+  97 0054 C0F57F40 		rsb	r0, r0, #65280
+  98 0058 FF30     		adds	r0, r0, #255
+  99 005a 0F4B     		ldr	r3, .L5+4
+ 100 005c 83FB0023 		smull	r2, r3, r3, r0
+ 101 0060 0344     		add	r3, r3, r0
+ 102 0062 C017     		asrs	r0, r0, #31
+ 103 0064 C0EB6310 		rsb	r0, r0, r3, asr #5
+ 104 0068 0C4C     		ldr	r4, .L5+8
+ 105 006a 2080     		strh	r0, [r4]	@ movhi
+  42:main.c        ****         
+  43:main.c        ****         //Display measurment results
+  44:main.c        ****         LCD_Position(1,0);
+ 106              		.loc 1 44 0
+ 107 006c 0021     		movs	r1, #0
+ 108 006e 0120     		movs	r0, #1
+ 109 0070 FFF7FEFF 		bl	LCD_Position
+ 110              	.LVL13:
+  45:main.c        ****         LCD_PrintString("            ");
+ 111              		.loc 1 45 0
+ 112 0074 0A48     		ldr	r0, .L5+12
+ 113 0076 FFF7FEFF 		bl	LCD_PrintString
+ 114              	.LVL14:
+  46:main.c        ****         LCD_Position(1,0);
+ 115              		.loc 1 46 0
+ 116 007a 0021     		movs	r1, #0
+ 117 007c 0120     		movs	r0, #1
+ 118 007e FFF7FEFF 		bl	LCD_Position
+ 119              	.LVL15:
+  47:main.c        ****         LCD_PrintNumber(delay);
+ 120              		.loc 1 47 0
+ 121 0082 2088     		ldrh	r0, [r4]
+ 122 0084 FFF7FEFF 		bl	LCD_PrintU32Number
+ 123              	.LVL16:
+  48:main.c        ****         
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 4
+
+
+  49:main.c        ****         //Wait before next measurment
+  50:main.c        ****         CyDelay(500);
+ 124              		.loc 1 50 0
+ 125 0088 4FF4FA70 		mov	r0, #500
+ 126 008c FFF7FEFF 		bl	CyDelay
+ 127              	.LVL17:
+  51:main.c        ****     }
+ 128              		.loc 1 51 0
+ 129 0090 C7E7     		b	.L3
+ 130              	.L6:
+ 131 0092 00BF     		.align	2
+ 132              	.L5:
+ 133 0094 00000000 		.word	.LC0
+ 134 0098 09CB3D8D 		.word	-1925330167
+ 135 009c 00000000 		.word	.LANCHOR0
+ 136 00a0 0C000000 		.word	.LC1
+ 137              		.cfi_endproc
+ 138              	.LFE63:
+ 139              		.size	main, .-main
+ 140              		.global	delay
+ 141              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 142              		.align	2
+ 143              	.LC0:
+ 144 0000 44697374 		.ascii	"Distance:\000"
+ 144      616E6365 
+ 144      3A00
+ 145 000a 0000     		.space	2
+ 146              	.LC1:
+ 147 000c 20202020 		.ascii	"            \000"
+ 147      20202020 
+ 147      20202020 
+ 147      00
+ 148              		.bss
+ 149              		.align	1
+ 150              		.set	.LANCHOR0,. + 0
+ 151              		.type	delay, %object
+ 152              		.size	delay, 2
+ 153              	delay:
+ 154 0000 0000     		.space	2
+ 155              		.text
+ 156              	.Letext0:
+ 157              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 158              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 159              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 160              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 161              		.file 6 "Generated_Source\\PSoC5/Timer.h"
+ 162              		.file 7 "Generated_Source\\PSoC5/LCD.h"
+ 163              		.file 8 "Generated_Source\\PSoC5/CyLib.h"
+ 164              		.file 9 "Generated_Source\\PSoC5/Control.h"
+ 165              		.file 10 "Generated_Source\\PSoC5/ECHO.h"
+ 166              		.section	.debug_info,"",%progbits
+ 167              	.Ldebug_info0:
+ 168 0000 A0020000 		.4byte	0x2a0
+ 169 0004 0400     		.2byte	0x4
+ 170 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 171 000a 04       		.byte	0x4
+ 172 000b 01       		.uleb128 0x1
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 5
+
+
+ 173 000c 3E000000 		.4byte	.LASF30
+ 174 0010 0C       		.byte	0xc
+ 175 0011 FA010000 		.4byte	.LASF31
+ 176 0015 17010000 		.4byte	.LASF32
+ 177 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 178 001d 00000000 		.4byte	0
+ 179 0021 00000000 		.4byte	.Ldebug_line0
+ 180 0025 02       		.uleb128 0x2
+ 181 0026 01       		.byte	0x1
+ 182 0027 06       		.byte	0x6
+ 183 0028 38020000 		.4byte	.LASF0
+ 184 002c 02       		.uleb128 0x2
+ 185 002d 01       		.byte	0x1
+ 186 002e 08       		.byte	0x8
+ 187 002f 30000000 		.4byte	.LASF1
+ 188 0033 02       		.uleb128 0x2
+ 189 0034 02       		.byte	0x2
+ 190 0035 05       		.byte	0x5
+ 191 0036 19020000 		.4byte	.LASF2
+ 192 003a 02       		.uleb128 0x2
+ 193 003b 02       		.byte	0x2
+ 194 003c 07       		.byte	0x7
+ 195 003d E4000000 		.4byte	.LASF3
+ 196 0041 03       		.uleb128 0x3
+ 197 0042 00000000 		.4byte	.LASF9
+ 198 0046 02       		.byte	0x2
+ 199 0047 3F       		.byte	0x3f
+ 200 0048 4C000000 		.4byte	0x4c
+ 201 004c 02       		.uleb128 0x2
+ 202 004d 04       		.byte	0x4
+ 203 004e 05       		.byte	0x5
+ 204 004f 23020000 		.4byte	.LASF4
+ 205 0053 02       		.uleb128 0x2
+ 206 0054 04       		.byte	0x4
+ 207 0055 07       		.byte	0x7
+ 208 0056 D2000000 		.4byte	.LASF5
+ 209 005a 02       		.uleb128 0x2
+ 210 005b 08       		.byte	0x8
+ 211 005c 05       		.byte	0x5
+ 212 005d EC010000 		.4byte	.LASF6
+ 213 0061 02       		.uleb128 0x2
+ 214 0062 08       		.byte	0x8
+ 215 0063 07       		.byte	0x7
+ 216 0064 9E010000 		.4byte	.LASF7
+ 217 0068 04       		.uleb128 0x4
+ 218 0069 04       		.byte	0x4
+ 219 006a 05       		.byte	0x5
+ 220 006b 696E7400 		.ascii	"int\000"
+ 221 006f 02       		.uleb128 0x2
+ 222 0070 04       		.byte	0x4
+ 223 0071 07       		.byte	0x7
+ 224 0072 91010000 		.4byte	.LASF8
+ 225 0076 03       		.uleb128 0x3
+ 226 0077 1C000000 		.4byte	.LASF10
+ 227 007b 03       		.byte	0x3
+ 228 007c 2C       		.byte	0x2c
+ 229 007d 41000000 		.4byte	0x41
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 6
+
+
+ 230 0081 05       		.uleb128 0x5
+ 231 0082 0B010000 		.4byte	.LASF11
+ 232 0086 04       		.byte	0x4
+ 233 0087 E901     		.2byte	0x1e9
+ 234 0089 3A000000 		.4byte	0x3a
+ 235 008d 05       		.uleb128 0x5
+ 236 008e CC000000 		.4byte	.LASF12
+ 237 0092 04       		.byte	0x4
+ 238 0093 EC01     		.2byte	0x1ec
+ 239 0095 33000000 		.4byte	0x33
+ 240 0099 02       		.uleb128 0x2
+ 241 009a 04       		.byte	0x4
+ 242 009b 04       		.byte	0x4
+ 243 009c 24000000 		.4byte	.LASF13
+ 244 00a0 02       		.uleb128 0x2
+ 245 00a1 08       		.byte	0x8
+ 246 00a2 04       		.byte	0x4
+ 247 00a3 04010000 		.4byte	.LASF14
+ 248 00a7 02       		.uleb128 0x2
+ 249 00a8 01       		.byte	0x1
+ 250 00a9 08       		.byte	0x8
+ 251 00aa 01020000 		.4byte	.LASF15
+ 252 00ae 02       		.uleb128 0x2
+ 253 00af 08       		.byte	0x8
+ 254 00b0 04       		.byte	0x4
+ 255 00b1 2C020000 		.4byte	.LASF16
+ 256 00b5 02       		.uleb128 0x2
+ 257 00b6 04       		.byte	0x4
+ 258 00b7 07       		.byte	0x7
+ 259 00b8 E3010000 		.4byte	.LASF17
+ 260 00bc 06       		.uleb128 0x6
+ 261 00bd 12010000 		.4byte	.LASF33
+ 262 00c1 01       		.byte	0x1
+ 263 00c2 10       		.byte	0x10
+ 264 00c3 68000000 		.4byte	0x68
+ 265 00c7 00000000 		.4byte	.LFB63
+ 266 00cb A4000000 		.4byte	.LFE63-.LFB63
+ 267 00cf 01       		.uleb128 0x1
+ 268 00d0 9C       		.byte	0x9c
+ 269 00d1 13020000 		.4byte	0x213
+ 270 00d5 07       		.uleb128 0x7
+ 271 00d6 08000000 		.4byte	.LVL0
+ 272 00da 35020000 		.4byte	0x235
+ 273 00de 07       		.uleb128 0x7
+ 274 00df 0C000000 		.4byte	.LVL1
+ 275 00e3 40020000 		.4byte	0x240
+ 276 00e7 08       		.uleb128 0x8
+ 277 00e8 14000000 		.4byte	.LVL2
+ 278 00ec 4B020000 		.4byte	0x24b
+ 279 00f0 FF000000 		.4byte	0xff
+ 280 00f4 09       		.uleb128 0x9
+ 281 00f5 01       		.uleb128 0x1
+ 282 00f6 50       		.byte	0x50
+ 283 00f7 01       		.uleb128 0x1
+ 284 00f8 30       		.byte	0x30
+ 285 00f9 09       		.uleb128 0x9
+ 286 00fa 01       		.uleb128 0x1
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 7
+
+
+ 287 00fb 51       		.byte	0x51
+ 288 00fc 01       		.uleb128 0x1
+ 289 00fd 30       		.byte	0x30
+ 290 00fe 00       		.byte	0
+ 291 00ff 08       		.uleb128 0x8
+ 292 0100 1A000000 		.4byte	.LVL3
+ 293 0104 56020000 		.4byte	0x256
+ 294 0108 16010000 		.4byte	0x116
+ 295 010c 09       		.uleb128 0x9
+ 296 010d 01       		.uleb128 0x1
+ 297 010e 50       		.byte	0x50
+ 298 010f 05       		.uleb128 0x5
+ 299 0110 03       		.byte	0x3
+ 300 0111 00000000 		.4byte	.LC0
+ 301 0115 00       		.byte	0
+ 302 0116 08       		.uleb128 0x8
+ 303 0117 22000000 		.4byte	.LVL4
+ 304 011b 61020000 		.4byte	0x261
+ 305 011f 2B010000 		.4byte	0x12b
+ 306 0123 09       		.uleb128 0x9
+ 307 0124 01       		.uleb128 0x1
+ 308 0125 50       		.byte	0x50
+ 309 0126 03       		.uleb128 0x3
+ 310 0127 0A       		.byte	0xa
+ 311 0128 E803     		.2byte	0x3e8
+ 312 012a 00       		.byte	0
+ 313 012b 08       		.uleb128 0x8
+ 314 012c 28000000 		.4byte	.LVL5
+ 315 0130 6C020000 		.4byte	0x26c
+ 316 0134 3E010000 		.4byte	0x13e
+ 317 0138 09       		.uleb128 0x9
+ 318 0139 01       		.uleb128 0x1
+ 319 013a 50       		.byte	0x50
+ 320 013b 01       		.uleb128 0x1
+ 321 013c 30       		.byte	0x30
+ 322 013d 00       		.byte	0
+ 323 013e 08       		.uleb128 0x8
+ 324 013f 2E000000 		.4byte	.LVL6
+ 325 0143 77020000 		.4byte	0x277
+ 326 0147 51010000 		.4byte	0x151
+ 327 014b 09       		.uleb128 0x9
+ 328 014c 01       		.uleb128 0x1
+ 329 014d 50       		.byte	0x50
+ 330 014e 01       		.uleb128 0x1
+ 331 014f 32       		.byte	0x32
+ 332 0150 00       		.byte	0
+ 333 0151 08       		.uleb128 0x8
+ 334 0152 34000000 		.4byte	.LVL7
+ 335 0156 6C020000 		.4byte	0x26c
+ 336 015a 64010000 		.4byte	0x164
+ 337 015e 09       		.uleb128 0x9
+ 338 015f 01       		.uleb128 0x1
+ 339 0160 50       		.byte	0x50
+ 340 0161 01       		.uleb128 0x1
+ 341 0162 31       		.byte	0x31
+ 342 0163 00       		.byte	0
+ 343 0164 08       		.uleb128 0x8
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 8
+
+
+ 344 0165 3A000000 		.4byte	.LVL8
+ 345 0169 77020000 		.4byte	0x277
+ 346 016d 77010000 		.4byte	0x177
+ 347 0171 09       		.uleb128 0x9
+ 348 0172 01       		.uleb128 0x1
+ 349 0173 50       		.byte	0x50
+ 350 0174 01       		.uleb128 0x1
+ 351 0175 3A       		.byte	0x3a
+ 352 0176 00       		.byte	0
+ 353 0177 08       		.uleb128 0x8
+ 354 0178 40000000 		.4byte	.LVL9
+ 355 017c 6C020000 		.4byte	0x26c
+ 356 0180 8A010000 		.4byte	0x18a
+ 357 0184 09       		.uleb128 0x9
+ 358 0185 01       		.uleb128 0x1
+ 359 0186 50       		.byte	0x50
+ 360 0187 01       		.uleb128 0x1
+ 361 0188 30       		.byte	0x30
+ 362 0189 00       		.byte	0
+ 363 018a 08       		.uleb128 0x8
+ 364 018b 48000000 		.4byte	.LVL10
+ 365 018f 77020000 		.4byte	0x277
+ 366 0193 9F010000 		.4byte	0x19f
+ 367 0197 09       		.uleb128 0x9
+ 368 0198 01       		.uleb128 0x1
+ 369 0199 50       		.byte	0x50
+ 370 019a 03       		.uleb128 0x3
+ 371 019b 0A       		.byte	0xa
+ 372 019c F401     		.2byte	0x1f4
+ 373 019e 00       		.byte	0
+ 374 019f 07       		.uleb128 0x7
+ 375 01a0 4C000000 		.4byte	.LVL11
+ 376 01a4 82020000 		.4byte	0x282
+ 377 01a8 07       		.uleb128 0x7
+ 378 01a9 54000000 		.4byte	.LVL12
+ 379 01ad 8D020000 		.4byte	0x28d
+ 380 01b1 08       		.uleb128 0x8
+ 381 01b2 74000000 		.4byte	.LVL13
+ 382 01b6 4B020000 		.4byte	0x24b
+ 383 01ba C9010000 		.4byte	0x1c9
+ 384 01be 09       		.uleb128 0x9
+ 385 01bf 01       		.uleb128 0x1
+ 386 01c0 50       		.byte	0x50
+ 387 01c1 01       		.uleb128 0x1
+ 388 01c2 31       		.byte	0x31
+ 389 01c3 09       		.uleb128 0x9
+ 390 01c4 01       		.uleb128 0x1
+ 391 01c5 51       		.byte	0x51
+ 392 01c6 01       		.uleb128 0x1
+ 393 01c7 30       		.byte	0x30
+ 394 01c8 00       		.byte	0
+ 395 01c9 08       		.uleb128 0x8
+ 396 01ca 7A000000 		.4byte	.LVL14
+ 397 01ce 56020000 		.4byte	0x256
+ 398 01d2 E0010000 		.4byte	0x1e0
+ 399 01d6 09       		.uleb128 0x9
+ 400 01d7 01       		.uleb128 0x1
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 9
+
+
+ 401 01d8 50       		.byte	0x50
+ 402 01d9 05       		.uleb128 0x5
+ 403 01da 03       		.byte	0x3
+ 404 01db 0C000000 		.4byte	.LC1
+ 405 01df 00       		.byte	0
+ 406 01e0 08       		.uleb128 0x8
+ 407 01e1 82000000 		.4byte	.LVL15
+ 408 01e5 4B020000 		.4byte	0x24b
+ 409 01e9 F8010000 		.4byte	0x1f8
+ 410 01ed 09       		.uleb128 0x9
+ 411 01ee 01       		.uleb128 0x1
+ 412 01ef 50       		.byte	0x50
+ 413 01f0 01       		.uleb128 0x1
+ 414 01f1 31       		.byte	0x31
+ 415 01f2 09       		.uleb128 0x9
+ 416 01f3 01       		.uleb128 0x1
+ 417 01f4 51       		.byte	0x51
+ 418 01f5 01       		.uleb128 0x1
+ 419 01f6 30       		.byte	0x30
+ 420 01f7 00       		.byte	0
+ 421 01f8 07       		.uleb128 0x7
+ 422 01f9 88000000 		.4byte	.LVL16
+ 423 01fd 98020000 		.4byte	0x298
+ 424 0201 0A       		.uleb128 0xa
+ 425 0202 90000000 		.4byte	.LVL17
+ 426 0206 61020000 		.4byte	0x261
+ 427 020a 09       		.uleb128 0x9
+ 428 020b 01       		.uleb128 0x1
+ 429 020c 50       		.byte	0x50
+ 430 020d 03       		.uleb128 0x3
+ 431 020e 0A       		.byte	0xa
+ 432 020f F401     		.2byte	0x1f4
+ 433 0211 00       		.byte	0
+ 434 0212 00       		.byte	0
+ 435 0213 0B       		.uleb128 0xb
+ 436 0214 F7000000 		.4byte	.LASF18
+ 437 0218 05       		.byte	0x5
+ 438 0219 1207     		.2byte	0x712
+ 439 021b 1F020000 		.4byte	0x21f
+ 440 021f 0C       		.uleb128 0xc
+ 441 0220 76000000 		.4byte	0x76
+ 442 0224 0D       		.uleb128 0xd
+ 443 0225 2A000000 		.4byte	.LASF19
+ 444 0229 01       		.byte	0x1
+ 445 022a 0E       		.byte	0xe
+ 446 022b 8D000000 		.4byte	0x8d
+ 447 022f 05       		.uleb128 0x5
+ 448 0230 03       		.byte	0x3
+ 449 0231 00000000 		.4byte	delay
+ 450 0235 0E       		.uleb128 0xe
+ 451 0236 85010000 		.4byte	.LASF20
+ 452 023a 85010000 		.4byte	.LASF20
+ 453 023e 06       		.byte	0x6
+ 454 023f 5A       		.byte	0x5a
+ 455 0240 0E       		.uleb128 0xe
+ 456 0241 06020000 		.4byte	.LASF21
+ 457 0245 06020000 		.4byte	.LASF21
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 10
+
+
+ 458 0249 07       		.byte	0x7
+ 459 024a 36       		.byte	0x36
+ 460 024b 0E       		.uleb128 0xe
+ 461 024c B5010000 		.4byte	.LASF22
+ 462 0250 B5010000 		.4byte	.LASF22
+ 463 0254 07       		.byte	0x7
+ 464 0255 3D       		.byte	0x3d
+ 465 0256 0E       		.uleb128 0xe
+ 466 0257 6B010000 		.4byte	.LASF23
+ 467 025b 6B010000 		.4byte	.LASF23
+ 468 025f 07       		.byte	0x7
+ 469 0260 3C       		.byte	0x3c
+ 470 0261 0E       		.uleb128 0xe
+ 471 0262 44020000 		.4byte	.LASF24
+ 472 0266 44020000 		.4byte	.LASF24
+ 473 026a 08       		.byte	0x8
+ 474 026b 76       		.byte	0x76
+ 475 026c 0E       		.uleb128 0xe
+ 476 026d D5010000 		.4byte	.LASF25
+ 477 0271 D5010000 		.4byte	.LASF25
+ 478 0275 09       		.byte	0x9
+ 479 0276 2F       		.byte	0x2f
+ 480 0277 0E       		.uleb128 0xe
+ 481 0278 7B010000 		.4byte	.LASF26
+ 482 027c 7B010000 		.4byte	.LASF26
+ 483 0280 08       		.byte	0x8
+ 484 0281 77       		.byte	0x77
+ 485 0282 0E       		.uleb128 0xe
+ 486 0283 0F020000 		.4byte	.LASF27
+ 487 0287 0F020000 		.4byte	.LASF27
+ 488 028b 0A       		.byte	0xa
+ 489 028c 29       		.byte	0x29
+ 490 028d 0E       		.uleb128 0xe
+ 491 028e 0A000000 		.4byte	.LASF28
+ 492 0292 0A000000 		.4byte	.LASF28
+ 493 0296 06       		.byte	0x6
+ 494 0297 69       		.byte	0x69
+ 495 0298 0E       		.uleb128 0xe
+ 496 0299 C2010000 		.4byte	.LASF29
+ 497 029d C2010000 		.4byte	.LASF29
+ 498 02a1 07       		.byte	0x7
+ 499 02a2 61       		.byte	0x61
+ 500 02a3 00       		.byte	0
+ 501              		.section	.debug_abbrev,"",%progbits
+ 502              	.Ldebug_abbrev0:
+ 503 0000 01       		.uleb128 0x1
+ 504 0001 11       		.uleb128 0x11
+ 505 0002 01       		.byte	0x1
+ 506 0003 25       		.uleb128 0x25
+ 507 0004 0E       		.uleb128 0xe
+ 508 0005 13       		.uleb128 0x13
+ 509 0006 0B       		.uleb128 0xb
+ 510 0007 03       		.uleb128 0x3
+ 511 0008 0E       		.uleb128 0xe
+ 512 0009 1B       		.uleb128 0x1b
+ 513 000a 0E       		.uleb128 0xe
+ 514 000b 55       		.uleb128 0x55
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 11
+
+
+ 515 000c 17       		.uleb128 0x17
+ 516 000d 11       		.uleb128 0x11
+ 517 000e 01       		.uleb128 0x1
+ 518 000f 10       		.uleb128 0x10
+ 519 0010 17       		.uleb128 0x17
+ 520 0011 00       		.byte	0
+ 521 0012 00       		.byte	0
+ 522 0013 02       		.uleb128 0x2
+ 523 0014 24       		.uleb128 0x24
+ 524 0015 00       		.byte	0
+ 525 0016 0B       		.uleb128 0xb
+ 526 0017 0B       		.uleb128 0xb
+ 527 0018 3E       		.uleb128 0x3e
+ 528 0019 0B       		.uleb128 0xb
+ 529 001a 03       		.uleb128 0x3
+ 530 001b 0E       		.uleb128 0xe
+ 531 001c 00       		.byte	0
+ 532 001d 00       		.byte	0
+ 533 001e 03       		.uleb128 0x3
+ 534 001f 16       		.uleb128 0x16
+ 535 0020 00       		.byte	0
+ 536 0021 03       		.uleb128 0x3
+ 537 0022 0E       		.uleb128 0xe
+ 538 0023 3A       		.uleb128 0x3a
+ 539 0024 0B       		.uleb128 0xb
+ 540 0025 3B       		.uleb128 0x3b
+ 541 0026 0B       		.uleb128 0xb
+ 542 0027 49       		.uleb128 0x49
+ 543 0028 13       		.uleb128 0x13
+ 544 0029 00       		.byte	0
+ 545 002a 00       		.byte	0
+ 546 002b 04       		.uleb128 0x4
+ 547 002c 24       		.uleb128 0x24
+ 548 002d 00       		.byte	0
+ 549 002e 0B       		.uleb128 0xb
+ 550 002f 0B       		.uleb128 0xb
+ 551 0030 3E       		.uleb128 0x3e
+ 552 0031 0B       		.uleb128 0xb
+ 553 0032 03       		.uleb128 0x3
+ 554 0033 08       		.uleb128 0x8
+ 555 0034 00       		.byte	0
+ 556 0035 00       		.byte	0
+ 557 0036 05       		.uleb128 0x5
+ 558 0037 16       		.uleb128 0x16
+ 559 0038 00       		.byte	0
+ 560 0039 03       		.uleb128 0x3
+ 561 003a 0E       		.uleb128 0xe
+ 562 003b 3A       		.uleb128 0x3a
+ 563 003c 0B       		.uleb128 0xb
+ 564 003d 3B       		.uleb128 0x3b
+ 565 003e 05       		.uleb128 0x5
+ 566 003f 49       		.uleb128 0x49
+ 567 0040 13       		.uleb128 0x13
+ 568 0041 00       		.byte	0
+ 569 0042 00       		.byte	0
+ 570 0043 06       		.uleb128 0x6
+ 571 0044 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 12
+
+
+ 572 0045 01       		.byte	0x1
+ 573 0046 3F       		.uleb128 0x3f
+ 574 0047 19       		.uleb128 0x19
+ 575 0048 03       		.uleb128 0x3
+ 576 0049 0E       		.uleb128 0xe
+ 577 004a 3A       		.uleb128 0x3a
+ 578 004b 0B       		.uleb128 0xb
+ 579 004c 3B       		.uleb128 0x3b
+ 580 004d 0B       		.uleb128 0xb
+ 581 004e 27       		.uleb128 0x27
+ 582 004f 19       		.uleb128 0x19
+ 583 0050 49       		.uleb128 0x49
+ 584 0051 13       		.uleb128 0x13
+ 585 0052 8701     		.uleb128 0x87
+ 586 0054 19       		.uleb128 0x19
+ 587 0055 11       		.uleb128 0x11
+ 588 0056 01       		.uleb128 0x1
+ 589 0057 12       		.uleb128 0x12
+ 590 0058 06       		.uleb128 0x6
+ 591 0059 40       		.uleb128 0x40
+ 592 005a 18       		.uleb128 0x18
+ 593 005b 9742     		.uleb128 0x2117
+ 594 005d 19       		.uleb128 0x19
+ 595 005e 01       		.uleb128 0x1
+ 596 005f 13       		.uleb128 0x13
+ 597 0060 00       		.byte	0
+ 598 0061 00       		.byte	0
+ 599 0062 07       		.uleb128 0x7
+ 600 0063 898201   		.uleb128 0x4109
+ 601 0066 00       		.byte	0
+ 602 0067 11       		.uleb128 0x11
+ 603 0068 01       		.uleb128 0x1
+ 604 0069 31       		.uleb128 0x31
+ 605 006a 13       		.uleb128 0x13
+ 606 006b 00       		.byte	0
+ 607 006c 00       		.byte	0
+ 608 006d 08       		.uleb128 0x8
+ 609 006e 898201   		.uleb128 0x4109
+ 610 0071 01       		.byte	0x1
+ 611 0072 11       		.uleb128 0x11
+ 612 0073 01       		.uleb128 0x1
+ 613 0074 31       		.uleb128 0x31
+ 614 0075 13       		.uleb128 0x13
+ 615 0076 01       		.uleb128 0x1
+ 616 0077 13       		.uleb128 0x13
+ 617 0078 00       		.byte	0
+ 618 0079 00       		.byte	0
+ 619 007a 09       		.uleb128 0x9
+ 620 007b 8A8201   		.uleb128 0x410a
+ 621 007e 00       		.byte	0
+ 622 007f 02       		.uleb128 0x2
+ 623 0080 18       		.uleb128 0x18
+ 624 0081 9142     		.uleb128 0x2111
+ 625 0083 18       		.uleb128 0x18
+ 626 0084 00       		.byte	0
+ 627 0085 00       		.byte	0
+ 628 0086 0A       		.uleb128 0xa
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 13
+
+
+ 629 0087 898201   		.uleb128 0x4109
+ 630 008a 01       		.byte	0x1
+ 631 008b 11       		.uleb128 0x11
+ 632 008c 01       		.uleb128 0x1
+ 633 008d 31       		.uleb128 0x31
+ 634 008e 13       		.uleb128 0x13
+ 635 008f 00       		.byte	0
+ 636 0090 00       		.byte	0
+ 637 0091 0B       		.uleb128 0xb
+ 638 0092 34       		.uleb128 0x34
+ 639 0093 00       		.byte	0
+ 640 0094 03       		.uleb128 0x3
+ 641 0095 0E       		.uleb128 0xe
+ 642 0096 3A       		.uleb128 0x3a
+ 643 0097 0B       		.uleb128 0xb
+ 644 0098 3B       		.uleb128 0x3b
+ 645 0099 05       		.uleb128 0x5
+ 646 009a 49       		.uleb128 0x49
+ 647 009b 13       		.uleb128 0x13
+ 648 009c 3F       		.uleb128 0x3f
+ 649 009d 19       		.uleb128 0x19
+ 650 009e 3C       		.uleb128 0x3c
+ 651 009f 19       		.uleb128 0x19
+ 652 00a0 00       		.byte	0
+ 653 00a1 00       		.byte	0
+ 654 00a2 0C       		.uleb128 0xc
+ 655 00a3 35       		.uleb128 0x35
+ 656 00a4 00       		.byte	0
+ 657 00a5 49       		.uleb128 0x49
+ 658 00a6 13       		.uleb128 0x13
+ 659 00a7 00       		.byte	0
+ 660 00a8 00       		.byte	0
+ 661 00a9 0D       		.uleb128 0xd
+ 662 00aa 34       		.uleb128 0x34
+ 663 00ab 00       		.byte	0
+ 664 00ac 03       		.uleb128 0x3
+ 665 00ad 0E       		.uleb128 0xe
+ 666 00ae 3A       		.uleb128 0x3a
+ 667 00af 0B       		.uleb128 0xb
+ 668 00b0 3B       		.uleb128 0x3b
+ 669 00b1 0B       		.uleb128 0xb
+ 670 00b2 49       		.uleb128 0x49
+ 671 00b3 13       		.uleb128 0x13
+ 672 00b4 3F       		.uleb128 0x3f
+ 673 00b5 19       		.uleb128 0x19
+ 674 00b6 02       		.uleb128 0x2
+ 675 00b7 18       		.uleb128 0x18
+ 676 00b8 00       		.byte	0
+ 677 00b9 00       		.byte	0
+ 678 00ba 0E       		.uleb128 0xe
+ 679 00bb 2E       		.uleb128 0x2e
+ 680 00bc 00       		.byte	0
+ 681 00bd 3F       		.uleb128 0x3f
+ 682 00be 19       		.uleb128 0x19
+ 683 00bf 3C       		.uleb128 0x3c
+ 684 00c0 19       		.uleb128 0x19
+ 685 00c1 6E       		.uleb128 0x6e
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 14
+
+
+ 686 00c2 0E       		.uleb128 0xe
+ 687 00c3 03       		.uleb128 0x3
+ 688 00c4 0E       		.uleb128 0xe
+ 689 00c5 3A       		.uleb128 0x3a
+ 690 00c6 0B       		.uleb128 0xb
+ 691 00c7 3B       		.uleb128 0x3b
+ 692 00c8 0B       		.uleb128 0xb
+ 693 00c9 00       		.byte	0
+ 694 00ca 00       		.byte	0
+ 695 00cb 00       		.byte	0
+ 696              		.section	.debug_aranges,"",%progbits
+ 697 0000 1C000000 		.4byte	0x1c
+ 698 0004 0200     		.2byte	0x2
+ 699 0006 00000000 		.4byte	.Ldebug_info0
+ 700 000a 04       		.byte	0x4
+ 701 000b 00       		.byte	0
+ 702 000c 0000     		.2byte	0
+ 703 000e 0000     		.2byte	0
+ 704 0010 00000000 		.4byte	.LFB63
+ 705 0014 A4000000 		.4byte	.LFE63-.LFB63
+ 706 0018 00000000 		.4byte	0
+ 707 001c 00000000 		.4byte	0
+ 708              		.section	.debug_ranges,"",%progbits
+ 709              	.Ldebug_ranges0:
+ 710 0000 00000000 		.4byte	.LFB63
+ 711 0004 A4000000 		.4byte	.LFE63
+ 712 0008 00000000 		.4byte	0
+ 713 000c 00000000 		.4byte	0
+ 714              		.section	.debug_line,"",%progbits
+ 715              	.Ldebug_line0:
+ 716 0000 AF010000 		.section	.debug_str,"MS",%progbits,1
+ 716      02008201 
+ 716      00000201 
+ 716      FB0E0D00 
+ 716      01010101 
+ 717              	.LASF9:
+ 718 0000 5F5F696E 		.ascii	"__int32_t\000"
+ 718      7433325F 
+ 718      7400
+ 719              	.LASF28:
+ 720 000a 54696D65 		.ascii	"Timer_ReadCounter\000"
+ 720      725F5265 
+ 720      6164436F 
+ 720      756E7465 
+ 720      7200
+ 721              	.LASF10:
+ 722 001c 696E7433 		.ascii	"int32_t\000"
+ 722      325F7400 
+ 723              	.LASF13:
+ 724 0024 666C6F61 		.ascii	"float\000"
+ 724      7400
+ 725              	.LASF19:
+ 726 002a 64656C61 		.ascii	"delay\000"
+ 726      7900
+ 727              	.LASF1:
+ 728 0030 756E7369 		.ascii	"unsigned char\000"
+ 728      676E6564 
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 15
+
+
+ 728      20636861 
+ 728      7200
+ 729              	.LASF30:
+ 730 003e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 730      43313120 
+ 730      352E342E 
+ 730      31203230 
+ 730      31363036 
+ 731 0071 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 731      20726576 
+ 731      6973696F 
+ 731      6E203233 
+ 731      37373135 
+ 732 00a4 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 732      66756E63 
+ 732      74696F6E 
+ 732      2D736563 
+ 732      74696F6E 
+ 733              	.LASF12:
+ 734 00cc 696E7431 		.ascii	"int16\000"
+ 734      3600
+ 735              	.LASF5:
+ 736 00d2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 736      20756E73 
+ 736      69676E65 
+ 736      6420696E 
+ 736      7400
+ 737              	.LASF3:
+ 738 00e4 73686F72 		.ascii	"short unsigned int\000"
+ 738      7420756E 
+ 738      7369676E 
+ 738      65642069 
+ 738      6E7400
+ 739              	.LASF18:
+ 740 00f7 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 740      52784275 
+ 740      66666572 
+ 740      00
+ 741              	.LASF14:
+ 742 0104 646F7562 		.ascii	"double\000"
+ 742      6C6500
+ 743              	.LASF11:
+ 744 010b 75696E74 		.ascii	"uint16\000"
+ 744      313600
+ 745              	.LASF33:
+ 746 0112 6D61696E 		.ascii	"main\000"
+ 746      00
+ 747              	.LASF32:
+ 748 0117 433A5C55 		.ascii	"C:\\Users\\oleksandr\\Documents\\PSoC Creator\\Work"
+ 748      73657273 
+ 748      5C6F6C65 
+ 748      6B73616E 
+ 748      64725C44 
+ 749 0145 73706163 		.ascii	"space02\\UltrasonicRangingModule.cydsn\000"
+ 749      6530325C 
+ 749      556C7472 
+ 749      61736F6E 
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 16
+
+
+ 749      69635261 
+ 750              	.LASF23:
+ 751 016b 4C43445F 		.ascii	"LCD_PrintString\000"
+ 751      5072696E 
+ 751      74537472 
+ 751      696E6700 
+ 752              	.LASF26:
+ 753 017b 43794465 		.ascii	"CyDelayUs\000"
+ 753      6C617955 
+ 753      7300
+ 754              	.LASF20:
+ 755 0185 54696D65 		.ascii	"Timer_Start\000"
+ 755      725F5374 
+ 755      61727400 
+ 756              	.LASF8:
+ 757 0191 756E7369 		.ascii	"unsigned int\000"
+ 757      676E6564 
+ 757      20696E74 
+ 757      00
+ 758              	.LASF7:
+ 759 019e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 759      206C6F6E 
+ 759      6720756E 
+ 759      7369676E 
+ 759      65642069 
+ 760              	.LASF22:
+ 761 01b5 4C43445F 		.ascii	"LCD_Position\000"
+ 761      506F7369 
+ 761      74696F6E 
+ 761      00
+ 762              	.LASF29:
+ 763 01c2 4C43445F 		.ascii	"LCD_PrintU32Number\000"
+ 763      5072696E 
+ 763      74553332 
+ 763      4E756D62 
+ 763      657200
+ 764              	.LASF25:
+ 765 01d5 436F6E74 		.ascii	"Control_Write\000"
+ 765      726F6C5F 
+ 765      57726974 
+ 765      6500
+ 766              	.LASF17:
+ 767 01e3 73697A65 		.ascii	"sizetype\000"
+ 767      74797065 
+ 767      00
+ 768              	.LASF6:
+ 769 01ec 6C6F6E67 		.ascii	"long long int\000"
+ 769      206C6F6E 
+ 769      6720696E 
+ 769      7400
+ 770              	.LASF31:
+ 771 01fa 6D61696E 		.ascii	"main.c\000"
+ 771      2E6300
+ 772              	.LASF15:
+ 773 0201 63686172 		.ascii	"char\000"
+ 773      00
+ 774              	.LASF21:
+ARM GAS  C:\Users\OLEKSA~1\AppData\Local\Temp\cclx5He7.s 			page 17
+
+
+ 775 0206 4C43445F 		.ascii	"LCD_Init\000"
+ 775      496E6974 
+ 775      00
+ 776              	.LASF27:
+ 777 020f 4543484F 		.ascii	"ECHO_Read\000"
+ 777      5F526561 
+ 777      6400
+ 778              	.LASF2:
+ 779 0219 73686F72 		.ascii	"short int\000"
+ 779      7420696E 
+ 779      7400
+ 780              	.LASF4:
+ 781 0223 6C6F6E67 		.ascii	"long int\000"
+ 781      20696E74 
+ 781      00
+ 782              	.LASF16:
+ 783 022c 6C6F6E67 		.ascii	"long double\000"
+ 783      20646F75 
+ 783      626C6500 
+ 784              	.LASF0:
+ 785 0238 7369676E 		.ascii	"signed char\000"
+ 785      65642063 
+ 785      68617200 
+ 786              	.LASF24:
+ 787 0244 43794465 		.ascii	"CyDelay\000"
+ 787      6C617900 
+ 788              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
